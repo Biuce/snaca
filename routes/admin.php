@@ -80,12 +80,6 @@ Route::group(
             Route::get('/logs/list', 'LogController@list')->name('log.list');
             Route::get('/logs/create', 'LogController@create')->name('log.create');
 
-            // 模型字段
-            Route::put('/entityFields/list/{id}', 'EntityFieldController@listUpdate')->name('entityField.listUpdate');
-
-            // 内容
-            Route::post('/entity/{entity}/batch', 'ContentController@batch')->name('content.batch');
-
             // 自动加载生成的其它路由
             foreach (new DirectoryIterator(base_path('routes/auto')) as $f) {
                 if ($f->isDot()) {
