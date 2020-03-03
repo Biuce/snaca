@@ -69,13 +69,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    LightCMS
+                    SnacaCMS
                 </div>
-                <div class="m-b-md">
+                <!-- <div class="m-b-md">
                     @foreach($entities as $entity)
                         <a target="_blank" href="{{ route('web::entity.content.list', ['entityId' => $entity->id]) }}">{{ $entity->name }}</a><hr>
                     @endforeach
-                </div>
+                </div> -->
                 <div class="m-b-md">
                     @if($user)
                         <span style="margin-right: 20px">欢迎 {{ $user->name }} !</span><a href="{{ route('member::logout') }}">退出登录</a>
@@ -83,9 +83,6 @@
                         <a href="{{ route('member::login.show') }}">用户登录</a>
                         <a href="{{ route('admin::login.show') }}">后台登录</a>
                     @endif
-                </div>
-                <div class="m-b-md">
-                    前台功能仅供参考，无需使用可以删除相关路由（routes/web.php、routes/member.php）
                 </div>
             </div>
         </div>

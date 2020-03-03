@@ -25,7 +25,7 @@ function getLang($local)
         $name = "top menu";
     } elseif ($local == "my") {
         $name = "top menu";
-    }else {
+    } else {
         $name = "顶级菜单";
     }
     return $name;

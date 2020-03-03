@@ -68,7 +68,9 @@ class Kernel extends HttpKernel
         'lang_local' => \App\Http\Middleware\LangLocale::class,
         'cors'=> \Medz\Cors\Laravel\Middleware\ShouldGroup::class,
         'api.refresh'=>\App\Http\Middleware\Api\RefreshTokenMiddleware::class,
+        'api.general'=>\App\Http\Middleware\Api\GeneralMiddleware::class,
         'api_auth' => \Qbhy\LaravelApiAuth\Middleware::class,
+        'api.lang' => \App\Http\Middleware\Api\Language::class,
     ];
 
     /**

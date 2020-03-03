@@ -79,7 +79,6 @@ return [
     */
 
 //    'locale' => 'zh',
-//    'locales' => ['en' => 'English', 'zh' => 'Chinese', 'my' => 'Malaysia'],
     'locales' => ['en' => 'English', 'zh' => 'Chinese'],
     /*
     |--------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 namespace App\Api\Helpers;
 
 use Exception;
+use App\Exceptions\QueryException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -61,7 +62,6 @@ class ExceptionReport
 
     public function register($className, callable $callback)
     {
-
         $this->doReport[$className] = $callback;
     }
 
@@ -71,10 +71,9 @@ class ExceptionReport
     public function shouldReturn()
     {
         //只有请求包含是json或者ajax请求时才有效
-//        if (! ($this->request->wantsJson() || $this->request->ajax())){
-//
-//            return false;
-//        }
+        if (!($this->request->wantsJson() || $this->request->ajax())) {
+            return false;
+        }
         foreach (array_keys($this->doReport) as $report) {
             if ($this->exception instanceof $report) {
                 $this->report = $report;
@@ -92,7 +91,6 @@ class ExceptionReport
      */
     public static function make(Exception $e)
     {
-
         return new static(\request(), $e);
     }
 
