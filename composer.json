@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "96qbhy/laravel-api-auth": "^4.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",

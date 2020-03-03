@@ -50,7 +50,7 @@ php artisan migrate --seed
 ```
 server {
     listen 80;
-    server_name light.com;
+    server_name snaca.com;
     root /data/www/SnacaCMS/public;
     index index.php index.html index.htm;
 

@@ -6,9 +6,6 @@
 namespace App\Repository\Admin;
 
 use App\Model\Admin\Category;
-use App\Model\Admin\Comment;
-use App\Model\Admin\CommentOperateLog;
-use App\Model\Admin\ContentTag;
 use App\Model\Admin\Entity;
 use App\Model\Admin\EntityField;
 use App\Repository\Searchable;
@@ -34,8 +31,6 @@ class EntityRepository
             $item->editUrl = route('admin::entity.edit', ['id' => $item->id]);
             $item->deleteUrl = route('admin::entity.delete', ['id' => $item->id]);
             $item->fieldUrl = route('admin::entityField.index') . '?entity_id=' . $item->id;
-            $item->contentUrl = route('admin::content.index', ['entity' => $item->id]);
-            $item->commentListUrl = route('admin::comment.index', ['entity_id' => $item->id]);
             return $item;
         });
 
@@ -125,11 +120,6 @@ class EntityRepository
         Entity::destroy($id);
         EntityField::query()->where('entity_id', $id)->delete();
         Category::query()->where('model_id', $id)->delete();
-        ContentTag::query()->where('entity_id', $id)->delete();
-        CommentOperateLog::query()->join('comments', 'comment_operate_logs.comment_id', '=', 'comments.id')
-            ->where('entity_id', $id)
-            ->delete();
-        Comment::query()->where('entity_id', $id)->delete();
 
         DB::commit();
     }
