@@ -21,7 +21,6 @@ return [
 
     'editRole' => '编辑角色',
     'privileges' => '分配权限',
-    'editRole' => '编辑角色',
     'createRole' => '新增角色',
     'current' => '分配权限-当前角色',
     'roleList' => '角色列表',
