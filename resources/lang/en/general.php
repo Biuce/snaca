@@ -27,6 +27,7 @@ return [
     'hide' => 'hide',
     'edit' => 'edit',
     'delete' => 'delete',
+    'info' => 'info',
 
     'submit' => 'submit',
     'reset' => 'reset',
@@ -42,4 +43,7 @@ return [
     'deleteFailed' => "delete_failed",
     'deleteSure' => "Are you sure to delete?",
     'return' => "return",
+    'confirm' => "Save",
+    'cancel' => "Close",
+    'message' => "Message",
 ];

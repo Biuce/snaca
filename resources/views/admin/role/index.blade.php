@@ -58,11 +58,30 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="{{ route('admin::role.edit', ['id' => $v['id']]) }}">{{trans('role.editRole')}}</a>
                                                     <a class="dropdown-item" href="{{ route('admin::role.permission.edit', ['id' => $v['id']]) }}">{{trans('role.privileges')}}</a>
-                                                    <a class="dropdown-item" href="#" onclick="deleteRole('{{ route('admin::role.delete', ['id' => $v['id']]) }}')">{{trans('general.delete')}}</a>
+                                                    <a class="dropdown-item" href="javascript:;" data-modal-trigger='{"target":"#modal-sample"}'>{{trans('general.delete')}}</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <div class="modal fade" id="modal-sample">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{trans('general.message')}}</h5>
+                                                    <button class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>{{trans('general.deleteSure')}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" data-dismiss="modal">{{trans('general.cancel')}}</button>
+                                                    <button class="btn btn-primary" onclick="deleteRole('{{ route('admin::role.delete', ['id' => $v['id']]) }}')">{{trans('general.confirm')}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 @endforeach
                             @endisset
                         </tbody>
@@ -78,65 +97,60 @@
 @extends('admin.js')
 @section('js')
     <script>
-        var sure = "{{trans('general.deleteSure')}}";
         var token = $("input[name='_token']") .val();
         function deleteRole (url) {
-            layer.confirm(sure, function(index){
-                $.ajax({
-                    url: url,
-                    type: "DELETE",   //请求方式
-                    headers: {'X-CSRF-Token': token},
-                    success: function (result) {
-                        if (result.code !== 0) {
-                            layer.msg(result.msg, {shift: 6, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        }
-                        layer.msg(result.msg, {shift: 1}, function () {
-                            if (result.reload) {
-                                location.reload();
-                            }
-                            if (result.redirect) {
-                                location.href = '{!! url()->current() !!}';
-                            }
-                        });
-                    },
-                    error: function (resp, stat, text) {
-                        if (window.form_submit) {
-                            form_submit.prop('disabled', false);
-                        }
-                        if (resp.status === 422) {
-                            var parse = $.parseJSON(resp.responseText);
-                            if (parse) {
-                                layer.msg(parse.msg, {shift: 6, skin:'alert-secondary alert-lighter'});
-                            }
-                            return false;
-                        } else if (resp.status === 404) {
-                            layer.msg('资源不存在', {icon: 5, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        } else if (resp.status === 401) {
-                            layer.msg('请先登录', {shift: 6, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        } else if (resp.status === 429) {
-                            layer.msg('访问过于频繁，请稍后再试', {shift: 6, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        } else if (resp.status === 419) {
-                            layer.msg('非法请求。请刷新页面后重试。', {shift: 6, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        } else if (resp.status === 500) {
-                            layer.msg('内部错误，请联系管理员', {shift: 6, skin:'alert-secondary alert-lighter'});
-                            return false;
-                        } else {
-                            var parse = $.parseJSON(resp.responseText);
-                            // if (parse && parse.err) {
-                            if (parse) {
-                                layer.alert(parse.msg);
-                            }
-                            return false;
-                        }
+            $.ajax({
+                url: url,
+                type: "DELETE",   //请求方式
+                headers: {'X-CSRF-Token': token},
+                success: function (result) {
+                    if (result.code !== 0) {
+                        layer.msg(result.msg, {shift: 6, skin:'alert-secondary alert-lighter'});
+                        return false;
                     }
-                });
-
-                layer.close(index);
+                    layer.msg(result.msg, {shift: 1}, function () {
+                        if (result.reload) {
+                            location.reload();
+                        }
+                        if (result.redirect) {
+                            location.href = '{!! url()->current() !!}';
+                        }
+                    });
+                },
+                error: function (resp, stat, text) {
+                    if (window.form_submit) {
+                        form_submit.prop('disabled', false);
+                    }
+                    if (resp.status === 422) {
+                        var parse = $.parseJSON(resp.responseText);
+                        if (parse) {
+                            layer.msg(parse.msg, {shift: 6, skin:'alert-secondary alert-lighter'});
+                        }
+                        return false;
+                    } else if (resp.status === 404) {
+                        layer.msg('资源不存在', {icon: 5, skin:'alert-secondary alert-lighter'});
+                        return false;
+                    } else if (resp.status === 401) {
+                        layer.msg('请先登录', {shift: 6, skin:'alert-secondary alert-lighter'});
+                        return false;
+                    } else if (resp.status === 429) {
+                        layer.msg('访问过于频繁，请稍后再试', {shift: 6, skin:'alert-secondary alert-lighter'});
+                        return false;
+                    } else if (resp.status === 419) {
+                        layer.msg('非法请求。请刷新页面后重试。', {shift: 6, skin:'alert-secondary alert-lighter'});
+                        return false;
+                    } else if (resp.status === 500) {
+                        layer.msg('内部错误，请联系管理员', {shift: 6, skin:'alert-secondary alert-lighter'});
+                        return false;
+                    } else {
+                        var parse = $.parseJSON(resp.responseText);
+                        // if (parse && parse.err) {
+                        if (parse) {
+                            layer.alert(parse.msg);
+                        }
+                        return false;
+                    }
+                }
             });
         }
     </script>

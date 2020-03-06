@@ -27,6 +27,7 @@ return [
     'hide' => '隐藏',
     'edit' => '编辑',
     'delete' => '删除',
+    'info' => '详情',
 
     'submit' => '提交',
     'reset' => '重置',
@@ -42,4 +43,7 @@ return [
     'deleteFailed' => "删除失败",
     'deleteSure' => "确定删除？",
     'return' => "返回",
+    'confirm' => "确定",
+    'cancel' => "取消",
+    'message' => "信息",
 ];
