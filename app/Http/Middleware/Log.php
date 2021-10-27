@@ -35,7 +35,7 @@ class Log
         if (isset($input['password'])) {
             $input['password'] = '******';
         }
-        $data['data'] = build_query($input, false);
+        $data['data'] = http_build_query($input, false);
 
         if (config('light.log_async_write')) {
             $data['updated_at'] = $data['created_at'] = Carbon::now();
